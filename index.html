@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>untitled money gaem.</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div>
+            <h1>untitled money gaem.</h1>
+            <p>learn money. make choices. try not to go broke.</p>
+        </div>
+
+        <button id="dictionaryBtn">financial dictionary</button>
+    </header>
+
+    <main>
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <span>balance</span>
+                <strong id="money">Rp3,500,000</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>savings</span>
+                <strong id="savings">Rp0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>happiness</span>
+                <strong id="happiness">70</strong>
+                <div class="bar">
+                    <div id="happinessBar"></div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <span>financial health</span>
+                <strong id="health">50</strong>
+                <div class="bar">
+                    <div id="healthBar"></div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="progress-area">
+
+            <div>
+                <span>level <b id="level">1</b></span>
+                <div class="xp-bar">
+                    <div id="xpBar"></div>
+                </div>
+            </div>
+
+            <div class="day">
+                day <b id="day">1</b> / 30
+            </div>
+
+        </section>
+
+        <div class="game-layout">
+
+            <section class="game-card">
+
+                <p class="event-label">financial situation</p>
+
+                <h2 id="eventTitle">welcome!</h2>
+
+                <p id="eventDescription">
+                    get ready to make your first financial decision.
+                </p>
+
+                <div id="choices"></div>
+
+                <button id="nextDayBtn" class="next-btn">
+                    next day →
+                </button>
+
+            </section>
+
+            <aside>
+
+                <div class="panel">
+                    <h3>achievements</h3>
+                    <div id="achievements"></div>
+                </div>
+
+                <div class="panel">
+                    <h3>collectibles</h3>
+                    <div id="collectibles"></div>
+                </div>
+
+                <div class="panel">
+                    <h3>activity log</h3>
+                    <div id="activityLog"></div>
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <button id="restartBtn">restart game</button>
+        <span>untitled money gaem. alpha 0.1</span>
+    </footer>
+
+
+    <!-- tutorial -->
+
+    <div id="tutorialOverlay" class="overlay">
+
+        <div class="modal">
+
+            <span class="tutorial-number" id="tutorialNumber">1 / 4</span>
+
+            <h2 id="tutorialTitle">welcome to untitled money gaem.</h2>
+
+            <p id="tutorialText">
+                you're about to manage your own virtual finances.
+                every choice affects your money, happiness, and financial health.
+            </p>
+
+            <button id="tutorialNext">continue →</button>
+
+        </div>
+
+    </div>
+
+
+    <!-- dictionary -->
+
+    <div id="dictionaryOverlay" class="overlay hidden">
+
+        <div class="modal dictionary-modal">
+
+            <button class="close-btn" id="closeDictionary">×</button>
+
+            <h2>financial dictionary</h2>
+
+            <input
+                type="text"
+                id="dictionarySearch"
+                placeholder="search a financial term..."
+            >
+
+            <div id="dictionaryList"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- game over -->
+
+    <div id="gameOverOverlay" class="overlay hidden">
+
+        <div class="modal final-modal">
+
+            <p class="event-label">30 days completed</p>
+
+            <h2>financial report</h2>
+
+            <p>you survived the financial simulation.</p>
+
+            <div class="final-stats">
+
+                <div>
+                    <span>money</span>
+                    <strong id="finalMoney">Rp0</strong>
+                </div>
+
+                <div>
+                    <span>savings</span>
+                    <strong id="finalSavings">Rp0</strong>
+                </div>
+
+                <div>
+                    <span>happiness</span>
+                    <strong id="finalHappiness">0</strong>
+                </div>
+
+                <div>
+                    <span>financial health</span>
+                    <strong id="finalHealth">0</strong>
+                </div>
+
+                <div>
+                    <span>level</span>
+                    <strong id="finalLevel">1</strong>
+                </div>
+
+                <div>
+                    <span>score</span>
+                    <strong id="finalScore">0</strong>
+                </div>
+
+            </div>
+
+            <p id="finalMessage"></p>
+
+            <button id="playAgainBtn">play again</button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
