@@ -82,11 +82,11 @@ const events = [
         choices: [
             {
                 title: "expensive restaurant",
-                description: "spend Rp200,000. happiness +12",
+                description: "spend Rp250,000. happiness +12",
                 action: () => {
-                    money -= 200000;
+                    money -= 250000;
                     happiness += 12;
-                    health -= 2;
+                    health -= 4;
                 }
             },
             {
