@@ -82,9 +82,9 @@ const events = [
         choices: [
             {
                 title: "expensive restaurant",
-                description: "spend Rp150,000. happiness +12",
+                description: "spend Rp200,000. happiness +12",
                 action: () => {
-                    money -= 150000;
+                    money -= 200000;
                     happiness += 12;
                     health -= 2;
                 }
@@ -1227,28 +1227,48 @@ function finishGame() {
 
     let message;
 
-    if (score >= 9000) {
+   function finishGame() {
+    const finalMoney = money + savings;
 
-        message =
-            "excellent financial decisions. humanity may yet survive.";
+    let result = "";
+    let message = "";
 
-    } else if (score >= 6000) {
-
-        message =
-            "pretty solid. you managed your money reasonably well.";
-
-    } else if (score >= 3500) {
-
-        message =
-            "not terrible. there were definitely some questionable purchases.";
-
-    } else {
-
-        message =
-            "your financial advisor is currently staring at the ceiling.";
-
+    if (health >= 100 && happiness >= 100 && finalMoney >= 3500000) {
+        result = "what";
+        message = "you are the financial advisor HIMSELF";
+    } 
+    else if (health >= 80 && happiness >= 80) {
+        result = "financially strong";
+        message = "mostly responsible decisions, maintained a good balance";
+    } 
+    else if (health >= 65 && happiness >= 65) {
+        result = "pretty solid";
+        message = "you made a few mistakes but its fine";
+    } 
+    else if (health >= 45) {
+        result = "still learning";
+        message = "ow";
+    } 
+    else {
+        result = "yeesh";
+        message = "your financial advisor killed himself";
     }
 
+    document.getElementById("final-result").textContent = result;
+    document.getElementById("final-message").textContent = message;
+
+    document.getElementById("final-money").textContent =
+        `rp${finalMoney.toLocaleString("id-ID")}`;
+
+    document.getElementById("final-savings").textContent =
+        `rp${savings.toLocaleString("id-ID")}`;
+
+    document.getElementById("final-happiness").textContent = happiness;
+    document.getElementById("final-health").textContent = health;
+
+    document.getElementById("game-over").classList.remove("hidden");
+}
+    
     document.getElementById("finalMessage").textContent =
         message;
 
