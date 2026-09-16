@@ -1517,3 +1517,15 @@ document
 // =====================================================
 
 resetGame();
+
+// ====================================================
+// CREDITS
+// ====================================================
+
+document.getElementById("credits-btn").addEventListener("click", () => {
+    document.getElementById("credits-modal").classList.remove("hidden");
+});
+
+document.getElementById("close-credits").addEventListener("click", () => {
+    document.getElementById("credits-modal").classList.add("hidden");
+});
