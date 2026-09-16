@@ -832,3 +832,16 @@ footer {
     font-size: 28px;
     cursor: pointer;
 }
+.credits-content {
+    color: var(--secondary);
+    line-height: 1.6;
+}
+
+.credits-content h3 {
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.credits-content p {
+    margin: 6px 0;
+}
