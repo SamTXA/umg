@@ -3,214 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>untitled money gaem.</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <div>
-            <h1>untitled money gaem.</h1>
-            <p>learn money. make choices. try not to go broke.</p>
-        </div>
+    <!-- ==================== COVER SCREEN ==================== -->
 
-        <button id="dictionaryBtn">financial dictionary</button>
+    <section id="cover-screen" class="screen active">
 
-        <button id="credits-btn">credits</button>
-        
-    </header>
+        <div class="cover-content">
 
-    <main>
-
-        <section class="stats">
-
-            <div class="stat-card">
-                <span>balance</span>
-                <strong id="money">Rp3,500,000</strong>
+            <div class="cover-logo">
+                <span>untitled</span>
+                <strong>money gaem.</strong>
             </div>
 
-            <div class="stat-card">
-                <span>savings</span>
-                <strong id="savings">Rp0</strong>
-            </div>
+            <p id="cover-subtitle">
+                learn money. make choices. try not to go broke.
+            </p>
 
-            <div class="stat-card">
-                <span>happiness</span>
-                <strong id="happiness">70</strong>
-                <div class="bar">
-                    <div id="happinessBar"></div>
-                </div>
-            </div>
+            <div class="cover-buttons">
 
-            <div class="stat-card">
-                <span>financial health</span>
-                <strong id="health">50</strong>
-                <div class="bar">
-                    <div id="healthBar"></div>
-                </div>
-            </div>
-
-        </section>
-
-        <section class="progress-area">
-
-            <div>
-                <span>level <b id="level">1</b></span>
-                <div class="xp-bar">
-                    <div id="xpBar"></div>
-                </div>
-            </div>
-
-            <div class="day">
-                day <b id="day">1</b> / 30
-            </div>
-
-        </section>
-
-        <div class="game-layout">
-
-            <section class="game-card">
-
-                <p class="event-label">financial situation</p>
-
-                <h2 id="eventTitle">welcome!</h2>
-
-                <p id="eventDescription">
-                    get ready to make your first financial decision.
-                </p>
-
-                <div id="choices"></div>
-
-                <button id="nextDayBtn" class="next-btn">
-                    next day →
+                <button id="start-btn" class="primary-btn">
+                    start game
                 </button>
 
-            </section>
+                <button id="cover-options-btn" class="secondary-btn">
+                    options
+                </button>
 
-            <aside>
+                <button id="cover-credits-btn" class="secondary-btn">
+                    credits
+                </button>
 
-                <div class="panel">
-                    <h3>achievements</h3>
-                    <div id="achievements"></div>
-                </div>
+            </div>
 
-                <div class="panel">
-                    <h3>collectibles</h3>
-                    <div id="collectibles"></div>
-                </div>
+            <p class="version">alpha 0.1</p>
 
-                <div class="panel">
-                    <h3>activity log</h3>
-                    <div id="activityLog"></div>
-                </div>
+        </div>
+
+    </section>
+
+
+    <!-- ==================== GAME SCREEN ==================== -->
+
+    <section id="game-screen" class="screen">
+
+        <header class="topbar">
+
+            <div class="brand">
+                <strong>untitled money gaem.</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <button id="dictionary-btn" class="small-btn">
+                    dictionary
+                </button>
+
+                <button id="game-options-btn" class="small-btn">
+                    options
+                </button>
+
+                <button id="game-credits-btn" class="small-btn">
+                    credits
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <main class="game-layout">
+
+            <!-- ==================== LEFT ==================== -->
+
+            <div class="main-column">
+
+                <section class="stats-card">
+
+                    <div class="stat">
+                        <span id="balance-label">balance</span>
+                        <strong id="money">rp3,500,000</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span id="savings-label">savings</span>
+                        <strong id="savings">rp0</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span id="happiness-label">happiness</span>
+
+                        <strong id="happiness">70</strong>
+
+                        <div class="bar">
+                            <div id="happiness-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <span id="health-label">financial health</span>
+
+                        <strong id="health">50</strong>
+
+                        <div class="bar">
+                            <div id="health-bar"></div>
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <section class="progress-card">
+
+                    <div>
+                        <span id="level-label">level</span>
+                        <strong id="level">1</strong>
+                    </div>
+
+                    <div class="xp-wrapper">
+                        <div class="xp-info">
+                            <span id="xp-label">xp</span>
+                            <span id="xp-text">0 / 100</span>
+                        </div>
+
+                        <div class="bar">
+                            <div id="xp-bar"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span id="day-label">day</span>
+                        <strong id="day">1 / 30</strong>
+                    </div>
+
+                </section>
+
+
+                <!-- ==================== EVENT ==================== -->
+
+                <section class="event-card">
+
+                    <div id="event-image-wrapper" class="event-image-wrapper hidden">
+                        <img id="event-image" src="" alt="">
+                    </div>
+
+                    <div class="event-meta">
+                        <span id="event-day">day 1</span>
+                    </div>
+
+                    <h1 id="event-title">
+                        new sneakers
+                    </h1>
+
+                    <p id="event-description">
+                        you really want new sneakers. what do you do?
+                    </p>
+
+                    <div id="choices" class="choices"></div>
+
+                    <button id="next-btn" class="primary-btn next-btn hidden">
+                        next day
+                    </button>
+
+                </section>
+
+            </div>
+
+
+            <!-- ==================== SIDEBAR ==================== -->
+
+            <aside class="sidebar">
+
+                <section class="side-card">
+
+                    <h2 id="achievements-title">
+                        achievements
+                    </h2>
+
+                    <div id="achievements-list" class="achievement-list"></div>
+
+                </section>
+
+
+                <section class="side-card">
+
+                    <h2 id="collectibles-title">
+                        collectibles
+                    </h2>
+
+                    <div id="collectibles-list" class="collectible-list"></div>
+
+                </section>
+
+
+                <section class="side-card">
+
+                    <h2 id="activity-title">
+                        activity
+                    </h2>
+
+                    <div id="activity-log" class="activity-log"></div>
+
+                </section>
 
             </aside>
 
+        </main>
+
+
+        <footer class="game-footer">
+
+            <button id="restart-btn" class="text-btn">
+                restart game
+            </button>
+
+            <span>untitled money gaem. · alpha 0.1</span>
+
+        </footer>
+
+    </section>
+
+
+    <!-- ==================== TUTORIAL ==================== -->
+
+    <div id="tutorial-modal" class="modal hidden">
+
+        <div class="modal-card tutorial-card">
+
+            <button class="close-btn" data-close="tutorial-modal">
+                ×
+            </button>
+
+            <div class="tutorial-page active" data-page="0">
+
+                <span class="tutorial-number">01</span>
+
+                <h2 id="tutorial-title-1">
+                    welcome to untitled money gaem.
+                </h2>
+
+                <p id="tutorial-text-1">
+                    you start with rp3,500,000 and 30 days to manage your finances.
+                </p>
+
+            </div>
+
+
+            <div class="tutorial-page" data-page="1">
+
+                <span class="tutorial-number">02</span>
+
+                <h2 id="tutorial-title-2">
+                    your stats matter
+                </h2>
+
+                <p id="tutorial-text-2">
+                    balance and savings affect your money, while happiness and financial health measure how well you're doing.
+                </p>
+
+            </div>
+
+
+            <div class="tutorial-page" data-page="2">
+
+                <span class="tutorial-number">03</span>
+
+                <h2 id="tutorial-title-3">
+                    there isn't always one answer
+                </h2>
+
+                <p id="tutorial-text-3">
+                    spending money can improve happiness. saving can improve financial health. balance is the point.
+                </p>
+
+            </div>
+
+
+            <div class="tutorial-page" data-page="3">
+
+                <span class="tutorial-number">04</span>
+
+                <h2 id="tutorial-title-4">
+                    watch out
+                </h2>
+
+                <p id="tutorial-text-4">
+                    scams, impulse purchases, debt and bad investments can hurt your financial situation.
+                </p>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button id="tutorial-back" class="secondary-btn">
+                    back
+                </button>
+
+                <span id="tutorial-progress">
+                    1 / 4
+                </span>
+
+                <button id="tutorial-next" class="primary-btn">
+                    next
+                </button>
+
+            </div>
+
         </div>
 
-    </main>
-
-    <footer>
-        <button id="restartBtn">restart game</button>
-        <span>untitled money gaem. alpha 0.1</span>
-    </footer>
+    </div>
 
 
-    <!-- tutorial -->
+    <!-- ==================== DICTIONARY ==================== -->
 
-    <div id="tutorialOverlay" class="overlay">
+    <div id="dictionary-modal" class="modal hidden">
 
-        <div class="modal">
+        <div class="modal-card dictionary-card">
 
-            <span class="tutorial-number" id="tutorialNumber">1 / 4</span>
+            <button class="close-btn" data-close="dictionary-modal">
+                ×
+            </button>
 
-            <h2 id="tutorialTitle">welcome to untitled money gaem.</h2>
+            <h2 id="dictionary-title">
+                financial dictionary
+            </h2>
 
-            <p id="tutorialText">
-                you're about to manage your own virtual finances.
-                every choice affects your money, happiness, and financial health.
+            <p id="dictionary-subtitle">
+                english → indonesian
             </p>
 
-            <button id="tutorialNext">continue →</button>
-
-        </div>
-
-    </div>
-
-
-    <!-- dictionary -->
-
-    <div id="dictionaryOverlay" class="overlay hidden">
-
-        <div class="modal dictionary-modal">
-
-            <button class="close-btn" id="closeDictionary">×</button>
-
-            <h2>financial dictionary</h2>
-
             <input
+                id="dictionary-search"
+                class="search-input"
                 type="text"
-                id="dictionarySearch"
-                placeholder="search a financial term..."
+                placeholder="search a term..."
             >
 
-            <div id="dictionaryList"></div>
+            <div id="dictionary-list" class="dictionary-list"></div>
 
         </div>
 
     </div>
 
 
-    <!-- game over -->
+    <!-- ==================== CREDITS ==================== -->
 
-    <div id="gameOverOverlay" class="overlay hidden">
+    <div id="credits-modal" class="modal hidden">
 
-        <div class="modal final-modal">
+        <div class="modal-card credits-card">
 
-            <p class="event-label">30 days completed</p>
+            <button class="close-btn" data-close="credits-modal">
+                ×
+            </button>
 
-            <h2>financial report</h2>
+            <h2 id="credits-title">
+                credits
+            </h2>
 
-            <p>you survived the financial simulation.</p>
+            <div class="credits-content">
+
+                <h3>untitled money gaem.</h3>
+
+                <p id="credits-description">
+                    an educational financial literacy web game
+                </p>
+
+                <div class="credit-row">
+                    <span>game designer</span>
+                    <strong>Keenan Nayaka Aditya</strong>
+                </div>
+
+                <div class="credit-row">
+                    <span>rule designer</span>
+                    <strong>Nessa Nasheeta</strong>
+                </div>
+
+                <div class="credit-row">
+                    <span>tester</span>
+                    <strong>Latisha Queency Alzena Onasis</strong>
+                </div>
+
+                <div class="credit-row">
+                    <span>content designer</span>
+                    <strong>Ardyna Syalia Salsabila</strong>
+                </div>
+
+                <div class="credit-row">
+                    <span>visual designer</span>
+                    <strong>Michell Arrio</strong>
+                </div>
+
+                <div class="credit-row">
+                    <span>code help</span>
+                    <strong>Samuel Theodore Xinto Aditya</strong>
+                </div>
+
+                <p class="credits-note">
+                    (Keenan's brother)
+                </p>
+
+                <p id="credits-footer">
+                    made for educational purposes
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================== OPTIONS ==================== -->
+
+    <div id="options-modal" class="modal hidden">
+
+        <div class="modal-card options-card">
+
+            <button class="close-btn" data-close="options-modal">
+                ×
+            </button>
+
+            <h2 id="options-title">
+                options
+            </h2>
+
+
+            <div class="option-group">
+
+                <label id="language-label">
+                    language
+                </label>
+
+                <div class="toggle-group">
+
+                    <button
+                        id="english-btn"
+                        class="toggle-btn active"
+                        data-language="en">
+                        english
+                    </button>
+
+                    <button
+                        id="indonesian-btn"
+                        class="toggle-btn"
+                        data-language="id">
+                        indonesia
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="option-group">
+
+                <label id="theme-label">
+                    theme
+                </label>
+
+                <div class="toggle-group">
+
+                    <button
+                        id="light-btn"
+                        class="toggle-btn active"
+                        data-theme="light">
+                        light
+                    </button>
+
+                    <button
+                        id="dark-btn"
+                        class="toggle-btn"
+                        data-theme="dark">
+                        dark
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================== GAME OVER ==================== -->
+
+    <div id="game-over-modal" class="modal hidden">
+
+        <div class="modal-card final-card">
+
+            <span class="final-label">
+                final report
+            </span>
+
+            <h1 id="final-result">
+                financially strong
+            </h1>
+
+            <p id="final-message">
+                you made mostly responsible decisions.
+            </p>
+
 
             <div class="final-stats">
 
                 <div>
-                    <span>money</span>
-                    <strong id="finalMoney">Rp0</strong>
+                    <span id="final-money-label">total money</span>
+                    <strong id="final-money">rp0</strong>
                 </div>
 
                 <div>
-                    <span>savings</span>
-                    <strong id="finalSavings">Rp0</strong>
+                    <span id="final-savings-label">savings</span>
+                    <strong id="final-savings">rp0</strong>
                 </div>
 
                 <div>
-                    <span>happiness</span>
-                    <strong id="finalHappiness">0</strong>
+                    <span id="final-happiness-label">happiness</span>
+                    <strong id="final-happiness">0</strong>
                 </div>
 
                 <div>
-                    <span>financial health</span>
-                    <strong id="finalHealth">0</strong>
+                    <span id="final-health-label">financial health</span>
+                    <strong id="final-health">0</strong>
                 </div>
 
                 <div>
-                    <span>level</span>
-                    <strong id="finalLevel">1</strong>
-                </div>
-
-                <div>
-                    <span>score</span>
-                    <strong id="finalScore">0</strong>
+                    <span id="final-achievements-label">achievements</span>
+                    <strong id="final-achievements">0 / 8</strong>
                 </div>
 
             </div>
 
-            <p id="finalMessage"></p>
 
-            <button id="playAgainBtn">play again</button>
+            <button id="final-restart-btn" class="primary-btn">
+                play again
+            </button>
 
         </div>
 
@@ -219,27 +553,5 @@
 
     <script src="script.js"></script>
 
-     <div id="credits-modal" class="overlay hidden">
-    <div class="dictionary-modal">
-        <button id="close-credits" class="close-btn">×</button>
-
-        <h2>credits</h2>
-
-        <div class="dictionary-content">
-            <h3>untitled money gaem.</h3>
-            <p>an educational financial literacy web game</p>
-
-            <p>game designer: <strong>Keenan Nayaka Aditya</strong></p>
-            <p>rule designer: <strong>Nessa Nasheeta</strong></p>
-            <p>tester: <strong>Latisha Queency Alzena Onasis</strong></p>
-            <p>content designer: <strong>Ardyna Syalia Salsabila</strong></p>
-            <p>visual designer: <strong>Michell Arrio</strong></p>
-            <p>with code help from: <strong>Samuel Theodore Xinto Aditya</strong> (Keenan's brother)</p>
-
-            <p>made for educational purposes</p>
-        </div>
-    </div>
-</div>
-    
 </body>
 </html>
