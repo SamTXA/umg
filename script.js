@@ -1,9 +1,18 @@
+/* =========================================================
+   UNTITLED MONEY GAEM.
+   ========================================================= */
+
+
+/* ==================== STATE ==================== */
+
 let money = 3500000;
 let savings = 0;
+
 let happiness = 70;
 let health = 50;
 
 let day = 1;
+
 let xp = 0;
 let level = 1;
 
@@ -13,552 +22,903 @@ let decisionMade = false;
 let unlockedAchievements = [];
 let unlockedCollectibles = [];
 
+let language = localStorage.getItem("umg-language") || "en";
+let theme = localStorage.getItem("umg-theme") || "light";
+
+
+/* ==================== TRANSLATIONS ==================== */
+
+const translations = {
+
+    en: {
+
+        start: "start game",
+        options: "options",
+        credits: "credits",
+
+        subtitle: "learn money. make choices. try not to go broke.",
+
+        dictionary: "dictionary",
+
+        balance: "balance",
+        savings: "savings",
+        happiness: "happiness",
+        health: "financial health",
+
+        level: "level",
+        xp: "xp",
+        day: "day",
+
+        achievements: "achievements",
+        collectibles: "collectibles",
+        activity: "activity",
+
+        restart: "restart game",
+        next: "next day",
+
+        tutorial: [
+            {
+                title: "welcome to untitled money gaem.",
+                text: "you start with rp3,500,000 and 30 days to manage your finances."
+            },
+            {
+                title: "your stats matter",
+                text: "balance and savings affect your money, while happiness and financial health measure how well you're doing."
+            },
+            {
+                title: "there isn't always one answer",
+                text: "spending money can improve happiness. saving can improve financial health. balance is the point."
+            },
+            {
+                title: "watch out",
+                text: "scams, impulse purchases, debt and bad investments can hurt your financial situation."
+            }
+        ],
+
+        back: "back",
+        nextTutorial: "next",
+        finishTutorial: "start",
+
+        dictionaryTitle: "financial dictionary",
+        dictionarySubtitle: "english → indonesian",
+        search: "search a term...",
+
+        optionsTitle: "options",
+        language: "language",
+        theme: "theme",
+        light: "light",
+        dark: "dark",
+        english: "english",
+        indonesia: "indonesia",
+
+        creditsTitle: "credits",
+        creditsDescription: "an educational financial literacy web game",
+        creditsFooter: "made for educational purposes",
+
+        finalReport: "final report",
+        totalMoney: "total money",
+        finalSavings: "savings",
+        finalHappiness: "happiness",
+        finalHealth: "financial health",
+        finalAchievements: "achievements",
+        playAgain: "play again",
+
+        achievementUnlocked: "achievement unlocked",
+        collectibleUnlocked: "collectible unlocked",
+
+        endings: {
+            master: {
+                title: "financial master",
+                message: "you managed your money while keeping both your finances and happiness healthy."
+            },
+
+            strong: {
+                title: "financially strong",
+                message: "you made mostly responsible decisions and maintained a good balance."
+            },
+
+            solid: {
+                title: "pretty solid",
+                message: "you made some mistakes, but your overall financial situation stayed healthy."
+            },
+
+            learning: {
+                title: "still learning",
+                message: "some decisions hurt your finances, but you still have room to improve."
+            },
+
+            chaos: {
+                title: "financial chaos",
+                message: "your finances took a serious hit. time to rethink those decisions."
+            }
+        }
+    },
+
+
+    id: {
+
+        start: "mulai game",
+        options: "opsi",
+        credits: "kredit",
+
+        subtitle: "belajar uang. buat pilihan. jangan sampai bangkrut.",
+
+        dictionary: "kamus",
+
+        balance: "saldo",
+        savings: "tabungan",
+        happiness: "kebahagiaan",
+        health: "kesehatan finansial",
+
+        level: "level",
+        xp: "xp",
+        day: "hari",
+
+        achievements: "pencapaian",
+        collectibles: "koleksi",
+        activity: "aktivitas",
+
+        restart: "mulai ulang",
+        next: "hari berikutnya",
+
+        tutorial: [
+            {
+                title: "selamat datang di untitled money gaem.",
+                text: "kamu mulai dengan rp3.500.000 dan punya 30 hari untuk mengatur keuangan."
+            },
+            {
+                title: "statistikmu penting",
+                text: "saldo dan tabungan memengaruhi uangmu, sementara kebahagiaan dan kesehatan finansial menunjukkan kondisimu."
+            },
+            {
+                title: "tidak selalu ada satu jawaban",
+                text: "mengeluarkan uang bisa meningkatkan kebahagiaan. menabung bisa meningkatkan kesehatan finansial. yang penting adalah keseimbangan."
+            },
+            {
+                title: "hati-hati",
+                text: "penipuan, pembelian impulsif, utang, dan investasi buruk dapat merusak kondisi keuanganmu."
+            }
+        ],
+
+        back: "kembali",
+        nextTutorial: "lanjut",
+        finishTutorial: "mulai",
+
+        dictionaryTitle: "kamus finansial",
+        dictionarySubtitle: "english → indonesia",
+        search: "cari istilah...",
+
+        optionsTitle: "opsi",
+        language: "bahasa",
+        theme: "tema",
+        light: "terang",
+        dark: "gelap",
+        english: "english",
+        indonesia: "indonesia",
+
+        creditsTitle: "kredit",
+        creditsDescription: "web game edukasi literasi keuangan",
+        creditsFooter: "dibuat untuk tujuan edukasi",
+
+        finalReport: "laporan akhir",
+        totalMoney: "total uang",
+        finalSavings: "tabungan",
+        finalHappiness: "kebahagiaan",
+        finalHealth: "kesehatan finansial",
+        finalAchievements: "pencapaian",
+        playAgain: "main lagi",
+
+        achievementUnlocked: "pencapaian terbuka",
+        collectibleUnlocked: "koleksi terbuka",
+
+        endings: {
+            master: {
+                title: "master finansial",
+                message: "kamu berhasil menjaga keuangan sekaligus mempertahankan kebahagiaan."
+            },
+
+            strong: {
+                title: "keuangan kuat",
+                message: "kamu membuat sebagian besar keputusan dengan bertanggung jawab dan menjaga keseimbangan."
+            },
+
+            solid: {
+                title: "cukup solid",
+                message: "ada beberapa kesalahan, tetapi kondisi keuanganmu secara keseluruhan masih sehat."
+            },
+
+            learning: {
+                title: "masih belajar",
+                message: "beberapa keputusan merugikan keuanganmu, tetapi masih banyak ruang untuk berkembang."
+            },
+
+            chaos: {
+                title: "keuangan kacau",
+                message: "kondisi keuanganmu terkena dampak cukup besar. saatnya mengevaluasi keputusanmu."
+            }
+        }
+    }
+
+};
+
+
+/* ==================== DICTIONARY ==================== */
+
 const dictionary = [
-    ["income", "pendapatan", "uang yang kamu terima."],
-    ["expense", "pengeluaran", "uang yang kamu keluarkan."],
-    ["budget", "anggaran", "rencana penggunaan uang."],
-    ["savings", "tabungan", "uang yang disisihkan untuk masa depan."],
-    ["investment", "investasi", "menempatkan uang dengan harapan mendapat hasil."],
-    ["interest", "bunga", "tambahan uang dari simpanan atau pinjaman."],
-    ["debt", "utang", "uang yang harus dibayar kembali."],
-    ["emergency fund", "dana darurat", "uang untuk keadaan tidak terduga."],
-    ["scam", "penipuan", "usaha menipu untuk mendapatkan uang atau informasi."],
-    ["phishing", "phishing", "usaha mendapatkan data melalui pesan atau situs palsu."],
-    ["digital payment", "pembayaran digital", "pembayaran menggunakan sistem elektronik."],
-    ["needs", "kebutuhan", "sesuatu yang memang diperlukan."],
-    ["wants", "keinginan", "sesuatu yang diinginkan tetapi tidak wajib."],
-    ["financial health", "kesehatan finansial", "kondisi keseluruhan keuangan."],
-    ["budgeting", "penganggaran", "proses merencanakan penggunaan uang."],
-    ["diversification", "diversifikasi", "membagi uang ke beberapa jenis investasi."],
-    ["risk", "risiko", "kemungkinan mengalami kerugian."],
-    ["profit", "keuntungan", "hasil positif setelah biaya dikurangi."],
-    ["loss", "kerugian", "uang yang hilang atau berkurang."],
-    ["transaction", "transaksi", "kegiatan pertukaran uang atau barang."]
+
+    ["income", "pendapatan"],
+    ["expense", "pengeluaran"],
+    ["budget", "anggaran"],
+    ["savings", "tabungan"],
+    ["investment", "investasi"],
+    ["interest", "bunga"],
+    ["debt", "utang"],
+    ["emergency fund", "dana darurat"],
+    ["scam", "penipuan"],
+    ["phishing", "phishing"],
+    ["digital payment", "pembayaran digital"],
+    ["needs", "kebutuhan"],
+    ["wants", "keinginan"],
+    ["financial health", "kesehatan finansial"],
+    ["budgeting", "penganggaran"],
+    ["diversification", "diversifikasi"],
+    ["risk", "risiko"],
+    ["profit", "keuntungan"],
+    ["loss", "kerugian"],
+    ["transaction", "transaksi"]
 ];
 
 
-// =====================================================
-// 30 FINANCIAL QUESTIONS
-// =====================================================
+/* ==================== ACHIEVEMENTS ==================== */
+
+const achievements = [
+
+    {
+        id: "scam-survivor",
+        icon: "shield",
+        name: "scam survivor",
+        description: "avoid a scam or phishing attempt"
+    },
+
+    {
+        id: "digital-spender",
+        icon: "wallet",
+        name: "digital spender",
+        description: "make a responsible digital payment"
+    },
+
+    {
+        id: "first-investor",
+        icon: "chart",
+        name: "first investor",
+        description: "make an investment decision"
+    },
+
+    {
+        id: "emergency-ready",
+        icon: "safe",
+        name: "emergency ready",
+        description: "build an emergency fund"
+    },
+
+    {
+        id: "balanced-life",
+        icon: "balance",
+        name: "balanced life",
+        description: "reach 90 happiness and 90 health"
+    },
+
+    {
+        id: "impulse-control",
+        icon: "pause",
+        name: "impulse control",
+        description: "reject an impulse purchase"
+    },
+
+    {
+        id: "budget-master",
+        icon: "budget",
+        name: "budget master",
+        description: "make a budgeting decision"
+    },
+
+    {
+        id: "goal-setter",
+        icon: "target",
+        name: "goal setter",
+        description: "choose a savings goal"
+    }
+
+];
+
+
+/* ==================== COLLECTIBLES ==================== */
+
+const collectibles = [
+
+    {
+        id: "scam-shield",
+        icon: "shield",
+        name: "scam shield",
+        description: "earned by avoiding scams"
+    },
+
+    {
+        id: "market-chart",
+        icon: "chart",
+        name: "market chart",
+        description: "earned by exploring investments"
+    },
+
+    {
+        id: "emergency-card",
+        icon: "safe",
+        name: "emergency fund",
+        description: "earned by preparing for emergencies"
+    },
+
+    {
+        id: "balance-card",
+        icon: "balance",
+        name: "balance card",
+        description: "earned by maintaining balance"
+    },
+
+    {
+        id: "risk-card",
+        icon: "risk",
+        name: "risk card",
+        description: "earned by understanding financial risk"
+    },
+
+    {
+        id: "goal-card",
+        icon: "target",
+        name: "goal card",
+        description: "earned by setting a savings goal"
+    }
+
+];
+
+
+/* ==================== 30 EVENTS ==================== */
 
 const events = [
 
-    // 1
     {
         title: "new sneakers",
-        description: "you find sneakers you really like for Rp450,000. your current shoes still work.",
-        choices: [
+        description: "you really want new sneakers. what do you do?",
+        image: "images/sneakers.jpg",
+        options: [
             {
-                title: "buy them",
-                description: "spend Rp450,000. happiness +12, health -5",
+                text: "buy them for rp750,000",
                 action: () => {
-                    money -= 450000;
-                    happiness += 12;
+                    money -= 750000;
+                    happiness += 15;
                     health -= 5;
                 }
             },
             {
-                title: "save the money",
-                description: "put Rp450,000 into savings. health +6",
+                text: "wait and save first",
                 action: () => {
-                    savings += 450000;
-                    health += 6;
+                    health += 5;
+                    unlockAchievement("impulse-control");
                 }
             },
             {
-                title: "wait and think",
-                description: "don't buy anything yet. health +3",
+                text: "find a cheaper option",
                 action: () => {
-                    health += 3;
+                    money -= 350000;
+                    happiness += 8;
+                    health += 2;
                 }
             }
         ]
     },
 
-    // 2
+
     {
         title: "lunch with friends",
-        description: "your friends want to eat at an expensive restaurant.",
-        choices: [
+        description: "your friends invite you to an expensive lunch. what do you do?",
+        image: "images/lunch.jpg",
+        options: [
             {
-                title: "expensive restaurant",
-                description: "spend Rp250,000. happiness +12",
+                text: "go and spend rp150,000",
                 action: () => {
-                    money -= 250000;
+                    money -= 150000;
                     happiness += 12;
-                    health -= 4;
                 }
             },
             {
-                title: "cheaper restaurant",
-                description: "spend Rp70,000. happiness +7",
+                text: "choose a cheaper place",
                 action: () => {
-                    money -= 70000;
+                    money -= 60000;
                     happiness += 7;
+                    health += 2;
                 }
             },
             {
-                title: "eat at home",
-                description: "spend nothing. happiness -3, health +4",
+                text: "skip it to save money",
                 action: () => {
-                    happiness -= 3;
                     health += 4;
+                    happiness -= 5;
                 }
             }
         ]
     },
 
-    // 3
+
     {
         title: "suspicious message",
-        description: "a message says you've won Rp5,000,000 and asks for your bank information.",
-        choices: [
+        description: "you receive a message saying you won a prize and need to click a link.",
+        image: "images/scam.jpg",
+        options: [
             {
-                title: "send the information",
-                description: "take the risk. money -Rp300,000, health -20",
-                action: () => {
-                    money -= 300000;
-                    health -= 20;
-                }
-            },
-            {
-                title: "ignore and report",
-                description: "protect your information. health +10",
-                action: () => {
-                    health += 10;
-                    unlockAchievement("scam survivor");
-                    unlockCollectible(
-                        "shield",
-                        "scam shield",
-                        "you identified a suspicious message."
-                    );
-                }
-            }
-        ]
-    },
-
-    // 4
-    {
-        title: "digital wallet",
-        description: "you've started making lots of small digital payments.",
-        choices: [
-            {
-                title: "track every transaction",
-                description: "build better spending habits. health +8",
-                action: () => {
-                    health += 8;
-                    unlockAchievement("digital spender");
-                }
-            },
-            {
-                title: "don't track them",
-                description: "small purchases can add up. health -8, money -50,000",
-                action: () => {
-                    health -= 8;
-                    money -= 50000;
-                }
-            }
-        ]
-    },
-
-    // 5
-    {
-        title: "investment opportunity",
-        description: "someone offers an investment promising guaranteed huge returns.",
-        choices: [
-            {
-                title: "invest immediately",
-                description: "spend Rp300,000. high risk. health -5",
-                action: () => {
-                    money -= 300000;
-                    health -= 5;
-                }
-            },
-            {
-                title: "research first",
-                description: "learn about the investment before deciding. health +8",
-                action: () => {
-                    health += 8;
-                    unlockAchievement("first investor");
-                    unlockCollectible(
-                        "chart",
-                        "market chart",
-                        "you learned that investments involve risk."
-                    );
-                }
-            },
-            {
-                title: "avoid it",
-                description: "keep your money safe. health +3",
-                action: () => {
-                    health += 3;
-                }
-            }
-        ]
-    },
-
-    // 6
-    {
-        title: "emergency repair",
-        description: "something important suddenly needs Rp250,000 for repairs.",
-        choices: [
-            {
-                title: "use emergency savings",
-                description: "use money saved for emergencies.",
-                action: () => {
-                    if (savings >= 250000) {
-                        savings -= 250000;
-                        health += 12;
-
-                        unlockAchievement("emergency ready");
-
-                        unlockCollectible(
-                            "safe",
-                            "emergency fund",
-                            "your savings helped during an unexpected expense."
-                        );
-                    } else {
-                        money -= 250000;
-                        health += 3;
-                    }
-                }
-            },
-            {
-                title: "use normal balance",
-                description: "pay directly from your available money. health +3",
+                text: "click the link",
                 action: () => {
                     money -= 250000;
-                    health += 3;
-                }
-            }
-        ]
-    },
-
-    // 7
-    {
-        title: "extra allowance",
-        description: "you receive an unexpected extra Rp200,000.",
-        choices: [
-            {
-                title: "save everything",
-                description: "savings +Rp200,000, happiness -3",
-                action: () => {
-                    savings += 200000;
-                    happiness -= 3;
+                    health -= 15;
                 }
             },
             {
-                title: "spend everything",
-                description: "happiness +10, health -5",
+                text: "ignore and report it",
                 action: () => {
-                    money += 200000;
-                    money -= 200000;
-                    happiness += 10;
-                    health -= 5;
-                }
-            },
-            {
-                title: "split it",
-                description: "save Rp100,000 and enjoy Rp100,000. balanced.",
-                action: () => {
-                    savings += 100000;
-                    happiness += 5;
-                    health += 4;
-
-                    unlockAchievement("balanced life");
-
-                    unlockCollectible(
-                        "balance",
-                        "balance card",
-                        "you balanced saving with enjoying your money."
-                    );
-                }
-            }
-        ]
-    },
-
-    // 8
-    {
-        title: "limited-time deal",
-        description: "an online store says your favorite item is 40% off for only 10 minutes.",
-        choices: [
-            {
-                title: "buy immediately",
-                description: "spend Rp175,000. happiness +5, health -5",
-                action: () => {
-                    money -= 175000;
-                    happiness += 5;
-                    health -= 5;
-                }
-            },
-            {
-                title: "think first",
-                description: "avoid an impulse purchase. health +7",
-                action: () => {
-                    health += 7;
-                    unlockAchievement("impulse control");
-                }
-            }
-        ]
-    },
-
-    // 9
-    {
-        title: "weekly budget",
-        description: "you have Rp500,000 available for the week.",
-        choices: [
-            {
-                title: "plan your spending",
-                description: "make a simple budget. health +10",
-                action: () => {
-                    health += 10;
-                    unlockAchievement("budget master");
-                }
-            },
-            {
-                title: "spend normally",
-                description: "don't make a plan. health -3",
-                action: () => {
-                    health -= 3;
-                }
-            }
-        ]
-    },
-
-    // 10
-    {
-        title: "new game",
-        description: "a game you've wanted costs Rp300,000.",
-        choices: [
-            {
-                title: "buy it",
-                description: "happiness +10, money -Rp300,000",
-                action: () => {
-                    money -= 300000;
-                    happiness += 10;
-                }
-            },
-            {
-                title: "save for later",
-                description: "keep the money. health +5",
-                action: () => {
-                    savings += 300000;
-                    health += 5;
-                }
-            }
-        ]
-    },
-
-    // 11
-    {
-        title: "bank interest",
-        description: "your savings account gives you Rp25,000 in fictional interest.",
-        choices: [
-            {
-                title: "keep it in savings",
-                description: "add the interest to your savings.",
-                action: () => {
-                    savings += 25000;
-                    health += 5;
-                }
-            },
-            {
-                title: "spend it",
-                description: "enjoy the extra money. happiness +4",
-                action: () => {
-                    money += 25000;
-                    happiness += 4;
-                }
-            }
-        ]
-    },
-
-    // 12
-    {
-        title: "subscription trap",
-        description: "you notice you're paying for three subscriptions you barely use.",
-        choices: [
-            {
-                title: "cancel unused subscriptions",
-                description: "save Rp75,000. health +8",
-                action: () => {
-                    savings += 75000;
                     health += 8;
+                    unlockAchievement("scam-survivor");
+                    unlockCollectible("scam-shield");
                 }
             },
             {
-                title: "keep everything",
-                description: "continue paying. health -6",
+                text: "ask a trusted adult first",
                 action: () => {
-                    money -= 75000;
+                    health += 5;
+                    unlockAchievement("scam-survivor");
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "digital wallet",
+        description: "you want to start using a digital wallet. what should you consider?",
+        image: "images/wallet.jpg",
+        options: [
+            {
+                text: "security and transaction fees",
+                action: () => {
+                    health += 6;
+                    unlockAchievement("digital-spender");
+                }
+            },
+            {
+                text: "only how cool the app looks",
+                action: () => {
+                    happiness += 2;
+                    health -= 2;
+                }
+            },
+            {
+                text: "use it without checking anything",
+                action: () => {
                     health -= 6;
                 }
             }
         ]
     },
 
-    // 13
+
+    {
+        title: "investment opportunity",
+        description: "someone offers an investment with guaranteed huge returns.",
+        image: "images/investment.jpg",
+        options: [
+            {
+                text: "invest immediately",
+                action: () => {
+                    money -= 500000;
+                    health -= 12;
+                }
+            },
+            {
+                text: "research it first",
+                action: () => {
+                    health += 7;
+                    unlockAchievement("first-investor");
+                    unlockCollectible("market-chart");
+                }
+            },
+            {
+                text: "avoid guaranteed-return claims",
+                action: () => {
+                    health += 8;
+                    unlockCollectible("risk-card");
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "emergency repair",
+        description: "something important suddenly needs repairing.",
+        image: "images/repair.jpg",
+        options: [
+            {
+                text: "pay using emergency savings",
+                action: () => {
+                    const amount = Math.min(savings, 400000);
+                    savings -= amount;
+                    money -= Math.max(0, 400000 - amount);
+                    health += 5;
+                    unlockAchievement("emergency-ready");
+                }
+            },
+            {
+                text: "use all your spending money",
+                action: () => {
+                    money -= 400000;
+                    happiness -= 3;
+                }
+            },
+            {
+                text: "borrow money",
+                action: () => {
+                    money += 400000;
+                    health -= 8;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "extra allowance",
+        description: "you unexpectedly receive an extra rp300,000.",
+        image: "images/money.jpg",
+        options: [
+            {
+                text: "save most of it",
+                action: () => {
+                    savings += 250000;
+                    health += 6;
+                }
+            },
+            {
+                text: "spend it all",
+                action: () => {
+                    happiness += 15;
+                    health -= 5;
+                }
+            },
+            {
+                text: "split it between saving and fun",
+                action: () => {
+                    savings += 150000;
+                    money += 0;
+                    happiness += 8;
+                    health += 3;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "limited-time deal",
+        description: "an online store says something is 70% off, but only for ten minutes.",
+        image: "images/sale.jpg",
+        options: [
+            {
+                text: "buy it immediately",
+                action: () => {
+                    money -= 350000;
+                    happiness += 6;
+                    health -= 5;
+                }
+            },
+            {
+                text: "check if you actually need it",
+                action: () => {
+                    health += 6;
+                    unlockAchievement("impulse-control");
+                }
+            },
+            {
+                text: "close the store",
+                action: () => {
+                    health += 4;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "weekly budget",
+        description: "you have money for the week. how should you divide it?",
+        image: "images/budget.jpg",
+        options: [
+            {
+                text: "plan needs first",
+                action: () => {
+                    health += 7;
+                    unlockAchievement("budget-master");
+                }
+            },
+            {
+                text: "spend first, calculate later",
+                action: () => {
+                    happiness += 5;
+                    health -= 7;
+                }
+            },
+            {
+                text: "save everything",
+                action: () => {
+                    health += 8;
+                    happiness -= 5;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "new game",
+        description: "a new game you really want just released.",
+        image: "images/game.jpg",
+        options: [
+            {
+                text: "buy it for rp300,000",
+                action: () => {
+                    money -= 300000;
+                    happiness += 12;
+                }
+            },
+            {
+                text: "wait for a sale",
+                action: () => {
+                    health += 4;
+                    unlockAchievement("impulse-control");
+                }
+            },
+            {
+                text: "decide you don't need it",
+                action: () => {
+                    health += 5;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "bank interest",
+        description: "your savings account earns interest. what does that mean?",
+        image: "images/bank.jpg",
+        options: [
+            {
+                text: "your savings earn extra money",
+                action: () => {
+                    savings += 50000;
+                    health += 6;
+                }
+            },
+            {
+                text: "the bank takes money from savings",
+                action: () => {
+                    health -= 3;
+                }
+            },
+            {
+                text: "interest has nothing to do with savings",
+                action: () => {
+                    health -= 5;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "subscription trap",
+        description: "a cheap subscription automatically renews every month.",
+        image: "images/subscription.jpg",
+        options: [
+            {
+                text: "check the renewal terms",
+                action: () => {
+                    health += 6;
+                }
+            },
+            {
+                text: "subscribe because it's cheap",
+                action: () => {
+                    money -= 100000;
+                    health -= 4;
+                }
+            },
+            {
+                text: "ignore the price completely",
+                action: () => {
+                    money -= 150000;
+                    health -= 6;
+                }
+            }
+        ]
+    },
+
+
     {
         title: "friend wants a loan",
-        description: "a friend asks to borrow Rp200,000 but has no clear repayment plan.",
-        choices: [
+        description: "a friend asks to borrow money. what should you consider?",
+        image: "images/loan.jpg",
+        options: [
             {
-                title: "lend the money",
-                description: "money -Rp200,000. happiness +4, health -5",
+                text: "whether you can afford to lose it",
                 action: () => {
-                    money -= 200000;
+                    health += 6;
+                }
+            },
+            {
+                text: "lend your entire balance",
+                action: () => {
+                    money = 0;
+                    happiness += 3;
+                    health -= 10;
+                }
+            },
+            {
+                text: "borrow money to lend them",
+                action: () => {
+                    health -= 12;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "online giveaway",
+        description: "an online giveaway asks for your bank details.",
+        image: "images/giveaway.jpg",
+        options: [
+            {
+                text: "send the information",
+                action: () => {
+                    money -= 300000;
+                    health -= 15;
+                }
+            },
+            {
+                text: "check whether the giveaway is legitimate",
+                action: () => {
+                    health += 7;
+                    unlockAchievement("scam-survivor");
+                }
+            },
+            {
+                text: "leave the website",
+                action: () => {
+                    health += 6;
+                    unlockCollectible("scam-shield");
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "needs vs wants",
+        description: "you have limited money but need something important and want something fun.",
+        image: "images/needs.jpg",
+        options: [
+            {
+                text: "buy the need first",
+                action: () => {
+                    health += 7;
+                    unlockAchievement("budget-master");
+                }
+            },
+            {
+                text: "buy the want first",
+                action: () => {
+                    happiness += 8;
+                    health -= 6;
+                }
+            },
+            {
+                text: "compare prices for the need",
+                action: () => {
+                    health += 6;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "discount psychology",
+        description: "something is discounted from rp500,000 to rp350,000. does that mean you should buy it?",
+        image: "images/discount.jpg",
+        options: [
+            {
+                text: "only if you actually need it",
+                action: () => {
+                    health += 6;
+                }
+            },
+            {
+                text: "yes because it's cheaper",
+                action: () => {
+                    money -= 350000;
                     happiness += 4;
                     health -= 5;
                 }
             },
             {
-                title: "politely decline",
-                description: "protect your budget. health +5",
+                text: "compare the price elsewhere first",
                 action: () => {
-                    health += 5;
+                    health += 7;
                 }
             }
         ]
     },
 
-    // 14
+
     {
-        title: "online giveaway",
-        description: "a random account asks you to pay Rp100,000 to claim a prize.",
-        choices: [
+        title: "unexpected gift",
+        description: "you receive a large monetary gift. how could you use it?",
+        image: "images/gift.jpg",
+        options: [
             {
-                title: "pay the fee",
-                description: "money -Rp100,000. health -15",
+                text: "save most of it",
                 action: () => {
-                    money -= 100000;
+                    savings += 300000;
+                    health += 7;
+                }
+            },
+            {
+                text: "spend it all",
+                action: () => {
+                    happiness += 15;
+                    health -= 7;
+                }
+            },
+            {
+                text: "split it between goals and fun",
+                action: () => {
+                    savings += 180000;
+                    happiness += 8;
+                    health += 4;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "fake bank call",
+        description: "someone calls claiming to be from your bank and asks for personal information.",
+        image: "images/phone.jpg",
+        options: [
+            {
+                text: "give them the information",
+                action: () => {
+                    money -= 400000;
                     health -= 15;
                 }
             },
             {
-                title: "ignore it",
-                description: "don't pay suspicious fees. health +8",
+                text: "hang up and contact the bank directly",
                 action: () => {
                     health += 8;
-                    unlockAchievement("scam survivor");
-                }
-            }
-        ]
-    },
-
-    // 15
-    {
-        title: "needs vs wants",
-        description: "you have Rp250,000 left for the week and need school supplies.",
-        choices: [
-            {
-                title: "buy school supplies",
-                description: "spend Rp100,000 on a need. health +8",
-                action: () => {
-                    money -= 100000;
-                    health += 8;
+                    unlockAchievement("scam-survivor");
                 }
             },
             {
-                title: "buy a new accessory",
-                description: "spend Rp200,000 on a want. happiness +7, health -7",
-                action: () => {
-                    money -= 200000;
-                    happiness += 7;
-                    health -= 7;
-                }
-            }
-        ]
-    },
-
-    // 16
-    {
-        title: "discount psychology",
-        description: "something costs Rp500,000 after a huge discount. you didn't plan to buy it.",
-        choices: [
-            {
-                title: "buy because it's discounted",
-                description: "money -Rp500,000. health -8",
-                action: () => {
-                    money -= 500000;
-                    health -= 8;
-                }
-            },
-            {
-                title: "skip it",
-                description: "remember that a discount isn't savings if you didn't need it. health +8",
-                action: () => {
-                    health += 8;
-                    unlockAchievement("impulse control");
-                }
-            }
-        ]
-    },
-
-    // 17
-    {
-        title: "unexpected gift",
-        description: "someone gives you Rp150,000.",
-        choices: [
-            {
-                title: "save it",
-                description: "savings +Rp150,000. health +5",
-                action: () => {
-                    savings += 150000;
-                    health += 5;
-                }
-            },
-            {
-                title: "enjoy it",
-                description: "happiness +8",
-                action: () => {
-                    money += 150000;
-                    money -= 150000;
-                    happiness += 8;
-                }
-            }
-        ]
-    },
-
-    // 18
-    {
-        title: "fake bank call",
-        description: "someone calls claiming to be your bank and asks for your OTP.",
-        choices: [
-            {
-                title: "give the OTP",
-                description: "never share OTPs. health -20, money -Rp250,000",
-                action: () => {
-                    money -= 250000;
-                    health -= 20;
-                }
-            },
-            {
-                title: "hang up",
-                description: "protect your account. health +10",
-                action: () => {
-                    health += 10;
-                    unlockAchievement("scam survivor");
-                }
-            }
-        ]
-    },
-
-    // 19
-    {
-        title: "saving goal",
-        description: "you want to save Rp1,000,000 for something important.",
-        choices: [
-            {
-                title: "set a target",
-                description: "create a clear savings goal. health +10",
-                action: () => {
-                    health += 10;
-                    unlockAchievement("goal setter");
-                }
-            },
-            {
-                title: "save whatever is left",
-                description: "less structured. health +2",
+                text: "ask for their password",
                 action: () => {
                     health += 2;
                 }
@@ -566,301 +926,362 @@ const events = [
         ]
     },
 
-    // 20
+
     {
-        title: "borrowing money",
-        description: "you want something that costs Rp400,000 but don't have enough.",
-        choices: [
+        title: "saving goal",
+        description: "you want to save for something expensive. how should you approach it?",
+        image: "images/goal.jpg",
+        options: [
             {
-                title: "borrow the money",
-                description: "create debt. health -10",
+                text: "set a specific target",
                 action: () => {
-                    money += 400000;
+                    savings += 150000;
+                    health += 7;
+                    unlockAchievement("goal-setter");
+                    unlockCollectible("goal-card");
+                }
+            },
+            {
+                text: "save whatever is left",
+                action: () => {
+                    savings += 50000;
+                    health += 2;
+                }
+            },
+            {
+                text: "buy it using debt",
+                action: () => {
                     health -= 10;
                 }
-            },
-            {
-                title: "wait and save",
-                description: "avoid unnecessary debt. health +8",
-                action: () => {
-                    health += 8;
-                    savings += 50000;
-                }
             }
         ]
     },
 
-    // 21
-    {
-        title: "investment research",
-        description: "you hear that every investment can make guaranteed money.",
-        choices: [
-            {
-                title: "believe it",
-                description: "trust the claim. health -8",
-                action: () => {
-                    health -= 8;
-                }
-            },
-            {
-                title: "remember risk",
-                description: "investments can gain or lose value. health +10",
-                action: () => {
-                    health += 10;
-                    unlockCollectible(
-                        "risk",
-                        "risk card",
-                        "you learned that investment returns are not guaranteed."
-                    );
-                }
-            }
-        ]
-    },
 
-    // 22
     {
-        title: "cash or digital?",
-        description: "you need to pay Rp50,000 for something.",
-        choices: [
+        title: "borrowing money",
+        description: "you want something but don't have enough money. should you borrow?",
+        image: "images/borrowing.jpg",
+        options: [
             {
-                title: "pay digitally and record it",
-                description: "practice tracking transactions. health +6",
+                text: "consider whether the debt is necessary",
                 action: () => {
                     health += 6;
                 }
             },
             {
-                title: "pay and forget",
-                description: "don't track the expense. health -4",
+                text: "borrow immediately",
                 action: () => {
-                    health -= 4;
+                    money += 300000;
+                    health -= 10;
+                }
+            },
+            {
+                text: "wait and save",
+                action: () => {
+                    health += 7;
                 }
             }
         ]
     },
 
-    // 23
-    {
-        title: "birthday spending",
-        description: "your friend's birthday is coming up.",
-        choices: [
-            {
-                title: "buy an expensive gift",
-                description: "spend Rp250,000. happiness +8, health -5",
-                action: () => {
-                    money -= 250000;
-                    happiness += 8;
-                    health -= 5;
-                }
-            },
-            {
-                title: "buy a reasonable gift",
-                description: "spend Rp100,000. happiness +6",
-                action: () => {
-                    money -= 100000;
-                    happiness += 6;
-                }
-            }
-        ]
-    },
 
-    // 24
     {
-        title: "monthly review",
-        description: "you check where your money went this month.",
-        choices: [
+        title: "investment research",
+        description: "before investing, what should you do?",
+        image: "images/research.jpg",
+        options: [
             {
-                title: "review every expense",
-                description: "learn from your spending. health +10",
+                text: "research risk and returns",
                 action: () => {
-                    health += 10;
-                    unlockAchievement("budget master");
+                    health += 8;
+                    unlockAchievement("first-investor");
+                    unlockCollectible("market-chart");
                 }
             },
             {
-                title: "ignore it",
-                description: "keep doing the same thing. health -5",
+                text: "trust a random influencer",
                 action: () => {
-                    health -= 5;
-                }
-            }
-        ]
-    },
-
-    // 25
-    {
-        title: "emergency fund",
-        description: "you currently have some savings. should you keep part of it untouched?",
-        choices: [
-            {
-                title: "keep an emergency fund",
-                description: "protect yourself from unexpected expenses. health +10",
-                action: () => {
-                    health += 10;
-                    unlockCollectible(
-                        "safe",
-                        "emergency fund",
-                        "money reserved for unexpected situations."
-                    );
+                    health -= 8;
                 }
             },
             {
-                title: "spend everything",
-                description: "happiness +8, health -10",
+                text: "invest because everyone else does",
                 action: () => {
-                    savings = Math.max(0, savings - 200000);
-                    happiness += 8;
                     health -= 10;
                 }
             }
         ]
     },
 
-    // 26
+
     {
-        title: "phishing website",
-        description: "a website looks like your bank but the address is slightly different.",
-        choices: [
+        title: "cash or digital?",
+        description: "when paying for something, what should influence your payment method?",
+        image: "images/payment.jpg",
+        options: [
             {
-                title: "enter your password",
-                description: "dangerous. health -20",
+                text: "security and convenience",
                 action: () => {
-                    health -= 20;
+                    health += 6;
+                    unlockAchievement("digital-spender");
                 }
             },
             {
-                title: "leave the website",
-                description: "check the official website instead. health +10",
+                text: "use whatever is fastest",
                 action: () => {
-                    health += 10;
-                    unlockCollectible(
-                        "shield",
-                        "phishing shield",
-                        "you spotted a suspicious website."
-                    );
+                    happiness += 2;
+                }
+            },
+            {
+                text: "never use digital payments",
+                action: () => {
+                    health -= 2;
                 }
             }
         ]
     },
 
-    // 27
+
     {
-        title: "saving too much?",
-        description: "you've been saving constantly and haven't spent anything on fun for weeks.",
-        choices: [
+        title: "birthday spending",
+        description: "you want to spend a lot on your birthday. how can you balance fun and finances?",
+        image: "images/birthday.jpg",
+        options: [
             {
-                title: "keep saving everything",
-                description: "savings +Rp100,000, happiness -8",
+                text: "set a spending limit",
                 action: () => {
-                    savings += 100000;
+                    happiness += 10;
+                    health += 5;
+                    unlockAchievement("balanced-life");
+                }
+            },
+            {
+                text: "spend without a limit",
+                action: () => {
+                    happiness += 15;
+                    health -= 8;
+                }
+            },
+            {
+                text: "don't spend anything",
+                action: () => {
+                    health += 6;
                     happiness -= 8;
                 }
+            }
+        ]
+    },
+
+
+    {
+        title: "monthly review",
+        description: "at the end of the month, what should you review?",
+        image: "images/review.jpg",
+        options: [
+            {
+                text: "income and expenses",
+                action: () => {
+                    health += 7;
+                    unlockAchievement("budget-master");
+                }
             },
             {
-                title: "use some money responsibly",
-                description: "happiness +8, health +3",
+                text: "only your purchases",
                 action: () => {
-                    money -= 100000;
-                    happiness += 8;
-                    health += 3;
+                    health += 2;
+                }
+            },
+            {
+                text: "nothing",
+                action: () => {
+                    health -= 5;
                 }
             }
         ]
     },
 
-    // 28
+
     {
-        title: "financial advice",
-        description: "someone online says you should put all your money into one investment.",
-        choices: [
+        title: "emergency fund",
+        description: "why is having an emergency fund useful?",
+        image: "images/emergency.jpg",
+        options: [
             {
-                title: "put everything in",
-                description: "high concentration risk. health -15",
+                text: "it helps with unexpected costs",
                 action: () => {
+                    savings += 200000;
+                    health += 8;
+                    unlockAchievement("emergency-ready");
+                    unlockCollectible("emergency-card");
+                }
+            },
+            {
+                text: "it is only for investments",
+                action: () => {
+                    health -= 3;
+                }
+            },
+            {
+                text: "you never need one",
+                action: () => {
+                    health -= 7;
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "phishing website",
+        description: "a website looks exactly like your bank but has a strange url.",
+        image: "images/phishing.jpg",
+        options: [
+            {
+                text: "check the official website instead",
+                action: () => {
+                    health += 8;
+                    unlockAchievement("scam-survivor");
+                    unlockCollectible("scam-shield");
+                }
+            },
+            {
+                text: "enter your password",
+                action: () => {
+                    money -= 350000;
                     health -= 15;
                 }
             },
             {
-                title: "diversify",
-                description: "learn why diversification can reduce concentration risk. health +10",
+                text: "download the app from the site",
                 action: () => {
-                    health += 10;
-                    unlockCollectible(
-                        "balance",
-                        "diversification card",
-                        "you learned not to put everything in one place."
-                    );
+                    health -= 12;
                 }
             }
         ]
     },
 
-    // 29
+
     {
-        title: "end-of-month bonus",
-        description: "you receive a fictional Rp300,000 bonus.",
-        choices: [
+        title: "saving too much?",
+        description: "is saving every single rupiah always the best financial decision?",
+        image: "images/saving.jpg",
+        options: [
             {
-                title: "save it",
-                description: "savings +Rp300,000. health +8",
+                text: "no, balance matters",
                 action: () => {
-                    savings += 300000;
-                    health += 8;
+                    happiness += 8;
+                    health += 5;
+                    unlockAchievement("balanced-life");
+                    unlockCollectible("balance-card");
                 }
             },
             {
-                title: "spend it all",
-                description: "happiness +12, health -6",
+                text: "yes, never spend anything",
+                action: () => {
+                    health += 10;
+                    happiness -= 12;
+                }
+            },
+            {
+                text: "spend everything instead",
                 action: () => {
                     happiness += 12;
-                    health -= 6;
-                }
-            },
-            {
-                title: "split it",
-                description: "save Rp150,000 and spend Rp150,000.",
-                action: () => {
-                    savings += 150000;
-                    happiness += 7;
-                    health += 5;
-
-                    unlockAchievement("balanced life");
+                    health -= 12;
                 }
             }
         ]
     },
 
-    // 30
+
+    {
+        title: "financial advice",
+        description: "someone online gives you financial advice. what should you check first?",
+        image: "images/advice.jpg",
+        options: [
+            {
+                text: "their credibility and evidence",
+                action: () => {
+                    health += 7;
+                }
+            },
+            {
+                text: "how many followers they have",
+                action: () => {
+                    health -= 3;
+                }
+            },
+            {
+                text: "whether they promise easy money",
+                action: () => {
+                    health += 6;
+                    unlockCollectible("risk-card");
+                }
+            }
+        ]
+    },
+
+
+    {
+        title: "end-of-month bonus",
+        description: "you receive an unexpected bonus. how should you allocate it?",
+        image: "images/bonus.jpg",
+        options: [
+            {
+                text: "save most and enjoy some",
+                action: () => {
+                    savings += 250000;
+                    happiness += 7;
+                    health += 5;
+                }
+            },
+            {
+                text: "spend it all",
+                action: () => {
+                    happiness += 15;
+                    health -= 8;
+                }
+            },
+            {
+                text: "save all of it",
+                action: () => {
+                    savings += 350000;
+                    health += 8;
+                    happiness -= 4;
+                }
+            }
+        ]
+    },
+
+
     {
         title: "final financial decision",
-        description: "you've reached the final day. how will you handle your remaining money?",
-        choices: [
+        description: "you have money left at the end of the game. what is your overall strategy?",
+        image: "images/final.jpg",
+        options: [
             {
-                title: "save most of it",
-                description: "savings +Rp200,000. health +10",
+                text: "keep a balance between saving and enjoying",
                 action: () => {
-                    savings += 200000;
+                    savings += 150000;
+                    happiness += 6;
+                    health += 6;
+                    unlockAchievement("balanced-life");
+                    unlockCollectible("balance-card");
+                }
+            },
+            {
+                text: "spend everything",
+                action: () => {
+                    happiness += 15;
+                    health -= 15;
+                }
+            },
+            {
+                text: "save everything",
+                action: () => {
+                    savings += 250000;
                     health += 10;
-                }
-            },
-            {
-                title: "enjoy some of it",
-                description: "spend Rp100,000. happiness +10",
-                action: () => {
-                    money -= 100000;
-                    happiness += 10;
-                }
-            },
-            {
-                title: "make a balanced plan",
-                description: "save Rp100,000 and spend responsibly. health +7, happiness +5",
-                action: () => {
-                    savings += 100000;
-                    money -= 50000;
-                    health += 7;
-                    happiness += 5;
-
-                    unlockAchievement("balanced life");
+                    happiness -= 8;
                 }
             }
         ]
@@ -869,108 +1290,232 @@ const events = [
 ];
 
 
-// =====================================================
-// ACHIEVEMENTS
-// =====================================================
+/* ==================== HELPERS ==================== */
 
-const achievements = [
-    "scam survivor",
-    "digital spender",
-    "first investor",
-    "emergency ready",
-    "balanced life",
-    "impulse control",
-    "budget master",
-    "goal setter"
-];
+function t(key) {
+    return translations[language][key];
+}
 
 
-// =====================================================
-// GAME FUNCTIONS
-// =====================================================
-
-function formatMoney(amount) {
-    return "Rp" + Math.max(0, Math.round(amount)).toLocaleString("id-ID");
+function formatMoney(value) {
+    return `rp${Math.max(0, Math.round(value)).toLocaleString("id-ID")}`;
 }
 
 
 function clampStats() {
-    happiness = Math.max(0, Math.min(100, happiness));
-    health = Math.max(0, Math.min(100, health));
 
     money = Math.max(0, money);
     savings = Math.max(0, savings);
+
+    happiness = Math.max(0, Math.min(100, happiness));
+    health = Math.max(0, Math.min(100, health));
+
 }
 
+
+/* ==================== UI ==================== */
 
 function updateStats() {
 
     clampStats();
 
-    document.getElementById("money").textContent =
-        formatMoney(money);
+    document.getElementById("money").textContent = formatMoney(money);
+    document.getElementById("savings").textContent = formatMoney(savings);
 
-    document.getElementById("savings").textContent =
-        formatMoney(savings);
+    document.getElementById("happiness").textContent = happiness;
+    document.getElementById("health").textContent = health;
 
-    document.getElementById("happiness").textContent =
-        happiness;
+    document.getElementById("happiness-bar").style.width = `${happiness}%`;
+    document.getElementById("health-bar").style.width = `${health}%`;
 
-    document.getElementById("health").textContent =
-        health;
+    document.getElementById("level").textContent = level;
 
-    document.getElementById("happinessBar").style.width =
-        happiness + "%";
+    document.getElementById("xp-text").textContent = `${xp} / 100`;
+    document.getElementById("xp-bar").style.width = `${xp}%`;
 
-    document.getElementById("healthBar").style.width =
-        health + "%";
+    document.getElementById("day").textContent = `${day} / 30`;
 
-    document.getElementById("level").textContent =
-        level;
-
-    document.getElementById("day").textContent =
-        day;
-
-    const xpNeeded = level * 100;
-
-    document.getElementById("xpBar").style.width =
-        Math.min(100, (xp / xpNeeded) * 100) + "%";
-
-    renderAchievements();
-    renderCollectibles();
 }
 
 
+function updateLabels() {
+
+    document.getElementById("dictionary-btn").textContent = t("dictionary");
+
+    document.getElementById("game-options-btn").textContent = t("options");
+    document.getElementById("game-credits-btn").textContent = t("credits");
+
+    document.getElementById("balance-label").textContent = t("balance");
+    document.getElementById("savings-label").textContent = t("savings");
+    document.getElementById("happiness-label").textContent = t("happiness");
+    document.getElementById("health-label").textContent = t("health");
+
+    document.getElementById("level-label").textContent = t("level");
+    document.getElementById("xp-label").textContent = t("xp");
+    document.getElementById("day-label").textContent = t("day");
+
+    document.getElementById("achievements-title").textContent = t("achievements");
+    document.getElementById("collectibles-title").textContent = t("collectibles");
+    document.getElementById("activity-title").textContent = t("activity");
+
+    document.getElementById("restart-btn").textContent = t("restart");
+    document.getElementById("next-btn").textContent = t("next");
+
+    document.getElementById("cover-subtitle").textContent = t("subtitle");
+
+    document.getElementById("start-btn").textContent = t("start");
+    document.getElementById("cover-options-btn").textContent = t("options");
+    document.getElementById("cover-credits-btn").textContent = t("credits");
+
+    document.getElementById("dictionary-title").textContent = t("dictionaryTitle");
+    document.getElementById("dictionary-subtitle").textContent = t("dictionarySubtitle");
+
+    document.getElementById("dictionary-search").placeholder = t("search");
+
+    document.getElementById("options-title").textContent = t("optionsTitle");
+    document.getElementById("language-label").textContent = t("language");
+    document.getElementById("theme-label").textContent = t("theme");
+
+    document.getElementById("light-btn").textContent = t("light");
+    document.getElementById("dark-btn").textContent = t("dark");
+
+    document.getElementById("english-btn").textContent = t("english");
+    document.getElementById("indonesian-btn").textContent = t("indonesia");
+
+    document.getElementById("credits-title").textContent = t("creditsTitle");
+    document.getElementById("credits-description").textContent = t("creditsDescription");
+    document.getElementById("credits-footer").textContent = t("creditsFooter");
+
+    document.getElementById("final-money-label").textContent = t("totalMoney");
+    document.getElementById("final-savings-label").textContent = t("finalSavings");
+    document.getElementById("final-happiness-label").textContent = t("finalHappiness");
+    document.getElementById("final-health-label").textContent = t("finalHealth");
+    document.getElementById("final-achievements-label").textContent = t("finalAchievements");
+    document.getElementById("final-restart-btn").textContent = t("playAgain");
+
+}
+
+
+function updateToggleButtons() {
+
+    document.querySelectorAll("[data-language]").forEach(button => {
+        button.classList.toggle(
+            "active",
+            button.dataset.language === language
+        );
+    });
+
+    document.querySelectorAll("[data-theme]").forEach(button => {
+        button.classList.toggle(
+            "active",
+            button.dataset.theme === theme
+        );
+    });
+
+}
+
+
+/* ==================== THEME ==================== */
+
+function applyTheme() {
+
+    document.body.classList.toggle(
+        "dark",
+        theme === "dark"
+    );
+
+    localStorage.setItem("umg-theme", theme);
+
+    updateToggleButtons();
+
+}
+
+
+/* ==================== LANGUAGE ==================== */
+
+function applyLanguage() {
+
+    document.documentElement.lang = language;
+
+    updateLabels();
+
+    updateToggleButtons();
+
+    renderDictionary();
+
+    renderAchievements();
+    renderCollectibles();
+
+    if (currentEvent) {
+        renderEvent();
+    }
+
+    updateTutorial();
+
+}
+
+
+/* ==================== EVENT ==================== */
+
 function generateEvent() {
+
+    currentEvent = events[day - 1];
 
     decisionMade = false;
 
-    // day 1 = question 1
-    // day 30 = question 30
-    currentEvent = events[day - 1];
+    renderEvent();
 
-    document.getElementById("eventTitle").textContent =
+}
+
+
+function renderEvent() {
+
+    if (!currentEvent) return;
+
+    document.getElementById("event-day").textContent =
+        `${t("day")} ${day}`;
+
+    document.getElementById("event-title").textContent =
         currentEvent.title;
 
-    document.getElementById("eventDescription").textContent =
+    document.getElementById("event-description").textContent =
         currentEvent.description;
+
+    const imageWrapper =
+        document.getElementById("event-image-wrapper");
+
+    const image =
+        document.getElementById("event-image");
+
+    if (currentEvent.image) {
+
+        image.src = currentEvent.image;
+
+        image.onerror = () => {
+            imageWrapper.classList.add("hidden");
+        };
+
+        imageWrapper.classList.remove("hidden");
+
+    } else {
+
+        imageWrapper.classList.add("hidden");
+
+    }
+
 
     const choices =
         document.getElementById("choices");
 
     choices.innerHTML = "";
 
-    currentEvent.choices.forEach((choice, index) => {
+    currentEvent.options.forEach((option, index) => {
 
-        const button =
-            document.createElement("button");
+        const button = document.createElement("button");
 
-        button.className = "choice";
+        button.className = "choice-btn";
 
-        button.innerHTML = `
-            <strong>${choice.title}</strong>
-            <span>${choice.description}</span>
-        `;
+        button.textContent = option.text;
 
         button.addEventListener("click", () => {
             chooseOption(index, button);
@@ -980,51 +1525,101 @@ function generateEvent() {
 
     });
 
-    document.getElementById("nextDayBtn").style.display =
-        "none";
+    document.getElementById("next-btn")
+        .classList.add("hidden");
+
+    updateStats();
+
 }
 
 
-function chooseOption(index, selectedButton) {
+function chooseOption(index, button) {
 
     if (decisionMade) return;
 
     decisionMade = true;
 
-    currentEvent.choices[index].action();
+    currentEvent.options[index].action();
 
-    document.querySelectorAll(".choice").forEach(button => {
-        button.disabled = true;
-    });
+    clampStats();
 
-    selectedButton.classList.add("selected");
+    button.classList.add("selected");
+
+    document.querySelectorAll(".choice-btn")
+        .forEach(choice => {
+            choice.disabled = true;
+        });
+
 
     gainXP(25);
 
-    addLog(
-        `day ${day}: ${currentEvent.choices[index].title}`
+
+    addActivity(
+        `${currentEvent.title}: ${currentEvent.options[index].text}`
     );
 
-    updateStats();
 
-    document.getElementById("nextDayBtn").style.display =
-        "block";
+    if (happiness >= 90 && health >= 90) {
+
+        unlockAchievement("balanced-life");
+        unlockCollectible("balance-card");
+
+    }
+
+
+    updateStats();
+    renderAchievements();
+    renderCollectibles();
+
+
+    document.getElementById("next-btn")
+        .classList.remove("hidden");
+
 }
 
+
+/* ==================== NEXT DAY ==================== */
+
+function nextDay() {
+
+    if (!decisionMade) return;
+
+    if (day >= 30) {
+
+        finishGame();
+
+        return;
+    }
+
+
+    // daily income
+    money += 25000;
+
+    day++;
+
+    decisionMade = false;
+
+    generateEvent();
+
+}
+
+
+/* ==================== XP ==================== */
 
 function gainXP(amount) {
 
     xp += amount;
 
-    const xpNeeded = level * 100;
+    while (xp >= 100) {
 
-    if (xp >= xpNeeded) {
+        xp -= 100;
 
-        xp -= xpNeeded;
         level++;
 
-        addLog(
-            `level up! you reached level ${level}.`
+        addActivity(
+            language === "en"
+                ? `level up! you reached level ${level}.`
+                : `naik level! kamu mencapai level ${level}.`
         );
 
     }
@@ -1032,17 +1627,24 @@ function gainXP(amount) {
 }
 
 
-function unlockAchievement(name) {
+/* ==================== ACHIEVEMENTS ==================== */
 
-    if (!unlockedAchievements.includes(name)) {
+function unlockAchievement(id) {
 
-        unlockedAchievements.push(name);
-
-        addLog(
-            `achievement unlocked: ${name}`
-        );
-
+    if (unlockedAchievements.includes(id)) {
+        return;
     }
+
+    unlockedAchievements.push(id);
+
+    const achievement =
+        achievements.find(item => item.id === id);
+
+    if (!achievement) return;
+
+    addActivity(
+        `${t("achievementUnlocked")}: ${achievement.name}`
+    );
 
 }
 
@@ -1050,57 +1652,57 @@ function unlockAchievement(name) {
 function renderAchievements() {
 
     const container =
-        document.getElementById("achievements");
+        document.getElementById("achievements-list");
 
     container.innerHTML = "";
 
-    achievements.forEach(name => {
+    achievements.forEach(achievement => {
 
-        const div =
+        const unlocked =
+            unlockedAchievements.includes(achievement.id);
+
+        const item =
             document.createElement("div");
 
-        div.className = "achievement";
+        item.className =
+            `achievement ${unlocked ? "" : "locked"}`;
 
-        if (unlockedAchievements.includes(name)) {
+        item.innerHTML = `
+            <div class="achievement-icon">
+                ${achievement.icon}
+            </div>
 
-            div.innerHTML =
-                `✓ ${name}`;
+            <div class="achievement-info">
+                <strong>${achievement.name}</strong>
+                <span>${achievement.description}</span>
+            </div>
+        `;
 
-        } else {
-
-            div.className += " locked";
-
-            div.innerHTML =
-                `○ ${name}`;
-
-        }
-
-        container.appendChild(div);
+        container.appendChild(item);
 
     });
 
 }
 
 
-function unlockCollectible(id, name, description) {
+/* ==================== COLLECTIBLES ==================== */
 
-    if (
-        !unlockedCollectibles.some(
-            collectible => collectible.id === id
-        )
-    ) {
+function unlockCollectible(id) {
 
-        unlockedCollectibles.push({
-            id,
-            name,
-            description
-        });
-
-        addLog(
-            `collectible found: ${name}`
-        );
-
+    if (unlockedCollectibles.includes(id)) {
+        return;
     }
+
+    unlockedCollectibles.push(id);
+
+    const collectible =
+        collectibles.find(item => item.id === id);
+
+    if (!collectible) return;
+
+    addActivity(
+        `${t("collectibleUnlocked")}: ${collectible.name}`
+    );
 
 }
 
@@ -1108,300 +1710,160 @@ function unlockCollectible(id, name, description) {
 function renderCollectibles() {
 
     const container =
-        document.getElementById("collectibles");
+        document.getElementById("collectibles-list");
 
     container.innerHTML = "";
 
-    if (unlockedCollectibles.length === 0) {
+    collectibles.forEach(collectible => {
 
-        container.innerHTML =
-            `<div class="locked">no collectibles yet.</div>`;
+        const unlocked =
+            unlockedCollectibles.includes(collectible.id);
 
-        return;
-    }
-
-    unlockedCollectibles.forEach(item => {
-
-        const div =
+        const item =
             document.createElement("div");
 
-        div.className = "collectible";
+        item.className =
+            `collectible ${unlocked ? "" : "locked"}`;
 
-        div.innerHTML = `
+        item.innerHTML = `
             <div class="collectible-icon">
-                ${item.id.toUpperCase().slice(0, 3)}
+                ${collectible.icon}
             </div>
 
-            <div>
-                <strong>${item.name}</strong>
-                <br>
-                <span>${item.description}</span>
+            <div class="collectible-info">
+                <strong>${collectible.name}</strong>
+                <span>${collectible.description}</span>
             </div>
         `;
 
-        container.appendChild(div);
+        container.appendChild(item);
 
     });
 
 }
 
 
-function addLog(text) {
+/* ==================== ACTIVITY ==================== */
+
+function addActivity(text) {
 
     const log =
-        document.getElementById("activityLog");
+        document.getElementById("activity-log");
 
     const item =
         document.createElement("div");
 
-    item.className = "log-item";
+    item.className = "activity-item";
 
     item.textContent = text;
 
     log.prepend(item);
 
-    while (log.children.length > 7) {
-        log.removeChild(log.lastChild);
-    }
-
 }
 
 
-function nextDay() {
+/* ==================== DICTIONARY ==================== */
 
-    if (!decisionMade) return;
-
-    if (day >= 30) {
-        finishGame();
-        return;
-    }
-
-    day++;
-
-    // daily income
-    money += 25000;
-
-    addLog(
-        "daily income: +Rp25,000"
-    );
-
-    generateEvent();
-    updateStats();
-
-}
-
-
-function finishGame() {
-
-    clampStats();
-
-    const totalMoney =
-        money + savings;
-
-    const score =
-        Math.round(
-            totalMoney / 10000 +
-            health * 20 +
-            happiness * 10 +
-            level * 100 +
-            unlockedAchievements.length * 150
-        );
-
-    document.getElementById("finalMoney").textContent =
-        formatMoney(money);
-
-    document.getElementById("finalSavings").textContent =
-        formatMoney(savings);
-
-    document.getElementById("finalHappiness").textContent =
-        happiness;
-
-    document.getElementById("finalHealth").textContent =
-        health;
-
-    document.getElementById("finalLevel").textContent =
-        level;
-
-    document.getElementById("finalScore").textContent =
-        score.toLocaleString("id-ID");
-
-    let message;
-
-   function finishGame() {
-    const finalMoney = money + savings;
-
-    let result = "";
-    let message = "";
-
-    if (health >= 100 && happiness >= 100 && finalMoney >= 3500000) {
-        result = "what";
-        message = "you are the financial advisor HIMSELF";
-    } 
-    else if (health >= 80 && happiness >= 80) {
-        result = "financially strong";
-        message = "mostly responsible decisions, maintained a good balance";
-    } 
-    else if (health >= 65 && happiness >= 65) {
-        result = "pretty solid";
-        message = "you made a few mistakes but its fine";
-    } 
-    else if (health >= 45) {
-        result = "still learning";
-        message = "ow";
-    } 
-    else {
-        result = "yeesh";
-        message = "your financial advisor killed himself";
-    }
-
-    document.getElementById("final-result").textContent = result;
-    document.getElementById("final-message").textContent = message;
-
-    document.getElementById("final-money").textContent =
-        `rp${finalMoney.toLocaleString("id-ID")}`;
-
-    document.getElementById("final-savings").textContent =
-        `rp${savings.toLocaleString("id-ID")}`;
-
-    document.getElementById("final-happiness").textContent = happiness;
-    document.getElementById("final-health").textContent = health;
-
-    document.getElementById("game-over").classList.remove("hidden");
-}
-    
-    document.getElementById("finalMessage").textContent =
-        message;
-
-    document
-        .getElementById("gameOverOverlay")
-        .classList.remove("hidden");
-
-}
-
-
-// =====================================================
-// DICTIONARY
-// =====================================================
-
-function openDictionary() {
-
-    document
-        .getElementById("dictionaryOverlay")
-        .classList.remove("hidden");
-
-    renderDictionary("");
-
-}
-
-
-function closeDictionary() {
-
-    document
-        .getElementById("dictionaryOverlay")
-        .classList.add("hidden");
-
-}
-
-
-function renderDictionary(search) {
+function renderDictionary(search = "") {
 
     const container =
-        document.getElementById("dictionaryList");
+        document.getElementById("dictionary-list");
 
     container.innerHTML = "";
 
-    const filtered =
-        dictionary.filter(item =>
-            item[0]
-                .toLowerCase()
-                .includes(search.toLowerCase()) ||
+    const query =
+        search.trim().toLowerCase();
 
-            item[1]
-                .toLowerCase()
-                .includes(search.toLowerCase())
-        );
+    dictionary
+        .filter(([english, indonesian]) => {
 
-    filtered.forEach(item => {
+            return (
+                english.includes(query) ||
+                indonesian.includes(query)
+            );
 
-        const div =
-            document.createElement("div");
+        })
+        .forEach(([english, indonesian]) => {
 
-        div.className =
-            "dictionary-item";
+            const item =
+                document.createElement("div");
 
-        div.innerHTML = `
-            <strong>${item[0]} → ${item[1]}</strong>
-            <span>${item[2]}</span>
-        `;
+            item.className = "dictionary-item";
 
-        container.appendChild(div);
+            item.innerHTML = `
+                <strong>${english}</strong>
+                <span>${indonesian}</span>
+            `;
 
-    });
+            container.appendChild(item);
+
+        });
 
 }
 
 
-// =====================================================
-// TUTORIAL
-// =====================================================
-
-const tutorialPages = [
-
-    {
-        title: "welcome to untitled money gaem.",
-        text:
-            "you're starting with Rp3,500,000. over 30 days, you'll face 30 different financial situations."
-    },
-
-    {
-        title: "manage your money",
-        text:
-            "balance is the money you currently have. savings are money you've intentionally put aside for the future."
-    },
-
-    {
-        title: "watch your happiness",
-        text:
-            "saving everything isn't always the best choice. responsible spending can increase happiness, while overspending can hurt your financial health."
-    },
-
-    {
-        title: "learn while playing",
-        text:
-            "every decision teaches a financial concept. earn XP, unlock achievements, find collectibles, and check the financial dictionary whenever you need it."
-    }
-
-];
-
+/* ==================== TUTORIAL ==================== */
 
 let tutorialPage = 0;
 
+function updateTutorial() {
 
-function showTutorialPage() {
+    const pages =
+        document.querySelectorAll(".tutorial-page");
 
-    const page =
-        tutorialPages[tutorialPage];
+    pages.forEach((page, index) => {
 
-    document.getElementById("tutorialNumber").textContent =
-        `${tutorialPage + 1} / ${tutorialPages.length}`;
+        page.classList.toggle(
+            "active",
+            index === tutorialPage
+        );
 
-    document.getElementById("tutorialTitle").textContent =
-        page.title;
+    });
 
-    document.getElementById("tutorialText").textContent =
-        page.text;
 
-    document.getElementById("tutorialNext").textContent =
-        tutorialPage === tutorialPages.length - 1
-            ? "start game →"
-            : "continue →";
+    const data =
+        t("tutorial")[tutorialPage];
+
+    document.getElementById("tutorial-title-1").textContent =
+        t("tutorial")[0].title;
+
+    document.getElementById("tutorial-text-1").textContent =
+        t("tutorial")[0].text;
+
+    document.getElementById("tutorial-title-2").textContent =
+        t("tutorial")[1].title;
+
+    document.getElementById("tutorial-text-2").textContent =
+        t("tutorial")[1].text;
+
+    document.getElementById("tutorial-title-3").textContent =
+        t("tutorial")[2].title;
+
+    document.getElementById("tutorial-text-3").textContent =
+        t("tutorial")[2].text;
+
+    document.getElementById("tutorial-title-4").textContent =
+        t("tutorial")[3].title;
+
+    document.getElementById("tutorial-text-4").textContent =
+        t("tutorial")[3].text;
+
+
+    document.getElementById("tutorial-progress").textContent =
+        `${tutorialPage + 1} / 4`;
+
+    document.getElementById("tutorial-back").textContent =
+        t("back");
+
+    document.getElementById("tutorial-next").textContent =
+        tutorialPage === 3
+            ? t("finishTutorial")
+            : t("nextTutorial");
 
 }
 
 
-// =====================================================
-// RESET
-// =====================================================
+/* ==================== START GAME ==================== */
 
 function resetGame() {
 
@@ -1412,6 +1874,7 @@ function resetGame() {
     health = 50;
 
     day = 1;
+
     xp = 0;
     level = 1;
 
@@ -1421,111 +1884,364 @@ function resetGame() {
     unlockedAchievements = [];
     unlockedCollectibles = [];
 
-    document.getElementById("activityLog").innerHTML = "";
-
-    addLog(
-        "game started with Rp3,500,000."
-    );
+    document.getElementById("activity-log").innerHTML = "";
 
     updateStats();
 
+    renderAchievements();
+    renderCollectibles();
+
+    showScreen("game-screen");
+
     tutorialPage = 0;
 
-    showTutorialPage();
+    updateTutorial();
 
-    document
-        .getElementById("tutorialOverlay")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("gameOverOverlay")
-        .classList.add("hidden");
-
-    generateEvent();
+    openModal("tutorial-modal");
 
 }
 
 
-// =====================================================
-// EVENT LISTENERS
-// =====================================================
+/* ==================== FINISH GAME ==================== */
 
-document
-    .getElementById("nextDayBtn")
-    .addEventListener("click", nextDay);
+function finishGame() {
 
-
-document
-    .getElementById("dictionaryBtn")
-    .addEventListener("click", openDictionary);
+    const finalMoney =
+        money + savings;
 
 
-document
-    .getElementById("closeDictionary")
-    .addEventListener("click", closeDictionary);
+    let ending;
 
 
-document
-    .getElementById("dictionarySearch")
-    .addEventListener("input", event => {
+    /*
+       important:
+       achievements DO NOT determine the ending.
+       actual financial performance does.
+    */
 
-        renderDictionary(
-            event.target.value
-        );
+    if (
+        health >= 90 &&
+        happiness >= 90 &&
+        finalMoney >= 3500000
+    ) {
+
+        ending = "master";
+
+    } else if (
+        health >= 80 &&
+        happiness >= 80
+    ) {
+
+        ending = "strong";
+
+    } else if (
+        health >= 65 &&
+        happiness >= 65
+    ) {
+
+        ending = "solid";
+
+    } else if (
+        health >= 45
+    ) {
+
+        ending = "learning";
+
+    } else {
+
+        ending = "chaos";
+
+    }
+
+
+    const result =
+        translations[language].endings[ending];
+
+
+    document.getElementById("final-result").textContent =
+        result.title;
+
+    document.getElementById("final-message").textContent =
+        result.message;
+
+    document.getElementById("final-money").textContent =
+        formatMoney(finalMoney);
+
+    document.getElementById("final-savings").textContent =
+        formatMoney(savings);
+
+    document.getElementById("final-happiness").textContent =
+        happiness;
+
+    document.getElementById("final-health").textContent =
+        health;
+
+    document.getElementById("final-achievements").textContent =
+        `${unlockedAchievements.length} / ${achievements.length}`;
+
+
+    openModal("game-over-modal");
+
+}
+
+
+/* ==================== SCREEN CONTROL ==================== */
+
+function showScreen(id) {
+
+    document.querySelectorAll(".screen")
+        .forEach(screen => {
+            screen.classList.remove("active");
+        });
+
+    document.getElementById(id)
+        .classList.add("active");
+
+}
+
+
+/* ==================== MODALS ==================== */
+
+function openModal(id) {
+
+    document.getElementById(id)
+        .classList.remove("hidden");
+
+}
+
+
+function closeModal(id) {
+
+    document.getElementById(id)
+        .classList.add("hidden");
+
+}
+
+
+/* ==================== EVENT LISTENERS ==================== */
+
+
+/* start */
+
+document.getElementById("start-btn")
+    .addEventListener("click", () => {
+
+        resetGame();
 
     });
 
 
-document
-    .getElementById("tutorialNext")
+/* cover options */
+
+document.getElementById("cover-options-btn")
     .addEventListener("click", () => {
 
-        if (
-            tutorialPage <
-            tutorialPages.length - 1
-        ) {
+        openModal("options-modal");
+
+    });
+
+
+/* cover credits */
+
+document.getElementById("cover-credits-btn")
+    .addEventListener("click", () => {
+
+        openModal("credits-modal");
+
+    });
+
+
+/* game options */
+
+document.getElementById("game-options-btn")
+    .addEventListener("click", () => {
+
+        openModal("options-modal");
+
+    });
+
+
+/* game credits */
+
+document.getElementById("game-credits-btn")
+    .addEventListener("click", () => {
+
+        openModal("credits-modal");
+
+    });
+
+
+/* dictionary */
+
+document.getElementById("dictionary-btn")
+    .addEventListener("click", () => {
+
+        renderDictionary();
+
+        openModal("dictionary-modal");
+
+    });
+
+
+/* close buttons */
+
+document.querySelectorAll("[data-close]")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            closeModal(button.dataset.close);
+
+        });
+
+    });
+
+
+/* dictionary search */
+
+document.getElementById("dictionary-search")
+    .addEventListener("input", event => {
+
+        renderDictionary(event.target.value);
+
+    });
+
+
+/* options language */
+
+document.querySelectorAll("[data-language]")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            language = button.dataset.language;
+
+            localStorage.setItem(
+                "umg-language",
+                language
+            );
+
+            applyLanguage();
+
+        });
+
+    });
+
+
+/* options theme */
+
+document.querySelectorAll("[data-theme]")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            theme = button.dataset.theme;
+
+            applyTheme();
+
+        });
+
+    });
+
+
+/* tutorial */
+
+document.getElementById("tutorial-next")
+    .addEventListener("click", () => {
+
+        if (tutorialPage < 3) {
 
             tutorialPage++;
 
-            showTutorialPage();
+            updateTutorial();
 
         } else {
 
-            document
-                .getElementById("tutorialOverlay")
-                .classList.add("hidden");
-
-            generateEvent();
+            closeModal("tutorial-modal");
 
         }
 
     });
 
 
-document
-    .getElementById("restartBtn")
+document.getElementById("tutorial-back")
+    .addEventListener("click", () => {
+
+        if (tutorialPage > 0) {
+
+            tutorialPage--;
+
+            updateTutorial();
+
+        }
+
+    });
+
+
+/* next day */
+
+document.getElementById("next-btn")
+    .addEventListener("click", nextDay);
+
+
+/* restart */
+
+document.getElementById("restart-btn")
     .addEventListener("click", resetGame);
 
 
-document
-    .getElementById("playAgainBtn")
-    .addEventListener("click", resetGame);
+/* final restart */
+
+document.getElementById("final-restart-btn")
+    .addEventListener("click", () => {
+
+        closeModal("game-over-modal");
+
+        resetGame();
+
+    });
 
 
-// =====================================================
-// START
-// =====================================================
+/* click outside modal */
 
-resetGame();
+document.querySelectorAll(".modal")
+    .forEach(modal => {
 
-// ====================================================
-// CREDITS
-// ====================================================
+        modal.addEventListener("click", event => {
 
-document.getElementById("credits-btn").addEventListener("click", () => {
-    document.getElementById("credits-modal").classList.remove("hidden");
+            if (event.target === modal) {
+
+                modal.classList.add("hidden");
+
+            }
+
+        });
+
+    });
+
+
+/* escape key */
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        document.querySelectorAll(".modal")
+            .forEach(modal => {
+
+                modal.classList.add("hidden");
+
+            });
+
+    }
+
 });
 
-document.getElementById("close-credits").addEventListener("click", () => {
-    document.getElementById("credits-modal").classList.add("hidden");
-});
+
+/* ==================== INITIALIZE ==================== */
+
+applyTheme();
+applyLanguage();
+updateStats();
+renderAchievements();
+renderCollectibles();
